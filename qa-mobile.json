@@ -1,0 +1,36 @@
+[
+  [
+    "eval",
+    "window.scrollTo(0,0);if(document.documentElement.scrollWidth>innerWidth)throw Error('Horizontal overflow');'Mobile fits'"
+  ],
+  [
+    "shot",
+    "shots/mobile.png",
+    "body",
+    1
+  ],
+  [
+    "click",
+    "[data-page=assistant]"
+  ],
+  [
+    "eval",
+    "TallyHall.assistantAsk('Show overdue balances');if(!document.querySelector('.message.assistant').textContent.includes('$200'))throw Error('Query failed');window.scrollTo(0,0);'Mobile assistant verified'"
+  ],
+  [
+    "shot",
+    "shots/mobile-assistant.png",
+    "body",
+    1
+  ],
+  [
+    "eval",
+    "TallyHall.navigate('today');document.querySelector('[data-view=calendar]').click();if(document.documentElement.scrollWidth>innerWidth)throw Error('Calendar overflow');'Mobile calendar fits'"
+  ],
+  [
+    "shot",
+    "shots/mobile-calendar.png",
+    "body",
+    1
+  ]
+]

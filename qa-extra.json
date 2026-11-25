@@ -1,0 +1,105 @@
+[
+  [
+    "eval",
+    "TallyHall.navigate('tuition');document.querySelector('[data-action=import]').click(); 'Import preview opened'"
+  ],
+  [
+    "eval",
+    "const file=new File(['student,amount,date,source,id\\nStudent A,50.00,'+TallyHall.state.day+',Verified bank row 91,qa-import-1\\n'],'qa.csv',{type:'text/csv'});const dt=new DataTransfer();dt.items.add(file);document.querySelector('#import-file').files=dt.files;document.querySelector('#import-file').dispatchEvent(new Event('change'));"
+  ],
+  [
+    "until",
+    "document.querySelector('#apply-import')&&!document.querySelector('#apply-import').disabled"
+  ],
+  [
+    "shot",
+    "shots/import.png",
+    "#dialog",
+    1
+  ],
+  [
+    "eval",
+    "document.querySelector('#import-confirm').checked=true;document.querySelector('#apply-import').click();if(TallyHall.Model.balance(TallyHall.state,TallyHall.state.accounts[0])!==15000)throw Error('CSV import did not update balance'); 'CSV preview and confirmation verified'"
+  ],
+  [
+    "eval",
+    "TallyHall.accountModal('c');document.querySelector('[data-action=correct-receipt]').click();document.querySelector('#correct-amount').value='400';document.querySelector('#correct-reason').value='Checked original receipt';document.querySelector('#correct-form').requestSubmit();if(TallyHall.Model.balance(TallyHall.state,TallyHall.state.accounts[2])!==10000)throw Error('Correction failed');'Receipt correction reopens collection'"
+  ],
+  [
+    "eval",
+    "TallyHall.navigate('assistant');TallyHall.assistantAsk('Schedule follow-up for Student A tomorrow');const schedule=document.querySelector('[data-action=schedule]');if(!schedule)throw Error('No schedule preview');schedule.click();if(document.querySelector('#job-due').value!==TallyHall.Model.shift(TallyHall.state.day,1))throw Error('Incorrect proposed date');document.querySelector('#job-reason').value='School agreed next check';document.querySelector('#job-settings-form').requestSubmit();if(TallyHall.Model.jobs(TallyHall.state).find(j=>j.id==='draft:a').due!==TallyHall.Model.shift(TallyHall.state.day,1))throw Error('Date not saved');'Assistant date review updates shared job'"
+  ],
+  [
+    "eval",
+    "document.querySelector('[data-action=settings]').click();const restored=JSON.stringify(TallyHall.Model.seed(TallyHall.state.day));const rf=new File([restored],'backup.json',{type:'application/json'});const rt=new DataTransfer();rt.items.add(rf);document.querySelector('#restore-file').files=rt.files;document.querySelector('#restore-file').dispatchEvent(new Event('change'));"
+  ],
+  [
+    "until",
+    "!!document.querySelector('#confirm-restore')"
+  ],
+  [
+    "eval",
+    "document.querySelector('#confirm-restore').click();if(TallyHall.state.receipts.length!==5)throw Error('Restore did not replace state');'Backup restoration reviewed and verified'"
+  ],
+  [
+    "eval",
+    "TallyHall.navigate('today');window.scrollTo(0,0); document.querySelector('#toast').classList.remove('show'); 'All extra checks passed'"
+  ],
+  [
+    "shot",
+    "shots/desktop-final.png",
+    "body",
+    1
+  ],
+  [
+    "lines",
+    "shots/lines-light-final.png",
+    "#cabinet-stage"
+  ],
+  [
+    "shot",
+    "shots/cabinet-final-close.png",
+    "#cabinet-stage",
+    4
+  ],
+  [
+    "key",
+    "ArrowLeft",
+    "#cabinet-stage"
+  ],
+  [
+    "wait",
+    1300
+  ],
+  [
+    "lines",
+    "shots/lines-light-funding.png",
+    "#cabinet-stage"
+  ],
+  [
+    "shot",
+    "shots/cabinet-light-funding.png",
+    "#cabinet-stage",
+    4
+  ],
+  [
+    "key",
+    "ArrowLeft",
+    "#cabinet-stage"
+  ],
+  [
+    "wait",
+    1300
+  ],
+  [
+    "lines",
+    "shots/lines-light-settled.png",
+    "#cabinet-stage"
+  ],
+  [
+    "shot",
+    "shots/cabinet-light-settled.png",
+    "#cabinet-stage",
+    4
+  ]
+]

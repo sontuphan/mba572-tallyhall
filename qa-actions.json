@@ -1,0 +1,95 @@
+[
+  [
+    "eval",
+    "window.scrollTo(0,0); if(!window.TallyHall)throw Error('App did not initialize'); 'Initialized'"
+  ],
+  [
+    "shot",
+    "shots/desktop.png",
+    "body",
+    1
+  ],
+  [
+    "click",
+    "[data-job='draft:a']"
+  ],
+  [
+    "eval",
+    "if(!document.querySelector('#draft-form'))throw Error('Draft did not open'); if(TallyHall.Model.jobs(TallyHall.state).find(j=>j.id==='draft:a').status==='Done')throw Error('Unreviewed draft completed'); 'Draft requires review'"
+  ],
+  [
+    "shot",
+    "shots/draft.png",
+    "#dialog",
+    1
+  ],
+  [
+    "eval",
+    "document.querySelector('#draft-reviewed').checked=true;document.querySelector('#draft-form').requestSubmit(); if(TallyHall.Model.jobs(TallyHall.state).find(j=>j.id==='draft:a').status!=='Done')throw Error('Draft not complete'); if(TallyHall.Model.balance(TallyHall.state,TallyHall.state.accounts[0])!==20000)throw Error('Draft altered balance'); 'Reviewed drafting only'"
+  ],
+  [
+    "click",
+    "[data-action='close']"
+  ],
+  [
+    "eval",
+    "TallyHall.paymentModal('a','200'); document.querySelector('#payment-source').value='Checked bank row 37'; document.querySelector('#payment-verified').checked=true;document.querySelector('#payment-form').requestSubmit();if(TallyHall.Model.balance(TallyHall.state,TallyHall.state.accounts[0])!==0)throw Error('Balance did not settle');if(TallyHall.Model.jobs(TallyHall.state).find(j=>j.id==='collect:a').status!=='Done')throw Error('Collection not Done');'Payment updates all views'"
+  ],
+  [
+    "eval",
+    "const persisted=JSON.parse(localStorage.getItem('tallyhall.local.prototype.v1'));if(persisted.receipts.length!==6)throw Error('Payment did not persist'); TallyHall.navigate('tuition'); 'Local persistence verified'"
+  ],
+  [
+    "shot",
+    "shots/tuition.png",
+    "body",
+    1
+  ],
+  [
+    "click",
+    "[data-action='reconcile']"
+  ],
+  [
+    "eval",
+    "document.querySelector('#match-account').value='d';document.querySelector('#match-confirm').checked=true;document.querySelector('#match-form').requestSubmit();if(TallyHall.Model.summary(TallyHall.state).unmatched!==0)throw Error('Match failed');'Explicit matching verified'"
+  ],
+  [
+    "eval",
+    "TallyHall.openJob('approval:b');document.querySelector('#funding-approval').value='Approved';document.querySelector('#funding-submitted').checked=true;document.querySelector('#funding-source').value='Program confirmation 100';document.querySelector('#funding-form').requestSubmit();if(TallyHall.Model.jobs(TallyHall.state).find(j=>j.id==='approval:b').status!=='Done')throw Error('Approval not Done');if(TallyHall.Model.status(TallyHall.state,TallyHall.state.accounts[1])!=='Awaiting funding')throw Error('Funding treated as paid');'Approval and payment separate'"
+  ],
+  [
+    "eval",
+    "TallyHall.navigate('assistant');TallyHall.assistantAsk('Record $50 for Student D');if(!document.querySelector('.message-actions [data-action=payment]'))throw Error('Assistant action missing');'Assistant previews a mutation'"
+  ],
+  [
+    "shot",
+    "shots/assistant.png",
+    "body",
+    1
+  ],
+  [
+    "eval",
+    "TallyHall.navigate('today');document.querySelector('[data-view=calendar]').click();if(document.querySelectorAll('.cal-day').length!==42)throw Error('Calendar missing');'Shared job calendar verified'"
+  ],
+  [
+    "shot",
+    "shots/calendar.png",
+    "body",
+    1
+  ],
+  [
+    "eval",
+    "document.querySelector('[data-view=list]').click();TallyHall.save(); 'Browser checks passed'"
+  ],
+  [
+    "lines",
+    "shots/lines-light.png",
+    "#cabinet-stage"
+  ],
+  [
+    "shot",
+    "shots/cabinet-close.png",
+    "#cabinet-stage",
+    4
+  ]
+]
