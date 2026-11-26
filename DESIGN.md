@@ -2,7 +2,9 @@
 Figure size. Buildless local HTML; no network services or email connection.
 
 ## Model
-One account per student per billing cycle; amounts are integer cents.
+One account per student with monthly invoices; amounts are integer cents.
+Receipts apply oldest first. Original invoice dates remain separate from job dates.
+Drafts and staff-confirmed sending retain invoice snapshots; copying is not sending.
 Confirmed receipts reduce balances. Program funding never creates a family reminder.
 A reviewed draft completes drafting only; user-reported sending is separate.
 Changes recalculate jobs, invalidate stale drafts and preserve an action history.
@@ -21,7 +23,7 @@ Total: 72 purposeful solids plus screws and engraved paper rules; Figure remains
 Camera: azimuth 42 degrees, elevation 32 degrees. Drawer travel: 36 world units along +y.
 No pipes, cables, WebGL or round solids. Parts are rectangular sheet-metal pieces with four-tone kit shading.
 Kit geometry audits settle depth keys over 67 drawer transition states; live motion uses the same keys and projected travel.
-Desktop, mobile, reduced-motion, dark/light and close-up checks are required.
+Desktop, mobile, reduced-motion, light-only and close-up checks are required.
 
 ## Scope
 Today: generated jobs, filters, list/calendar, reviewed drafts, dates and ownership.

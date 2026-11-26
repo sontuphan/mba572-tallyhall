@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" data-theme="%%THEME%%">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; connect-src 'none'; base-uri 'none'; form-action 'none'"><meta name="theme-color" content="#f6f8f7"><title>TallyHall — tuition, in order</title><meta name="description" content="A local tuition and payment prototype. Records, actionable jobs, and reviewed email drafts."><style>%%STYLES%%</style></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'"><meta name="theme-color" content="#f6f8f7"><title>TallyHall — tuition, in order</title><meta name="description" content="A local tuition and payment prototype. Records, actionable jobs, and reviewed email drafts."><style>%%STYLES%%</style></head>
 <body>
 <div class="app">
 <aside class="sidebar">
@@ -10,12 +10,13 @@
  <nav aria-label="Main navigation">
  <button data-page="today" class="nav-item active"><span data-icon="sun"></span>Today<span class="nav-count" id="nav-count"></span></button>
  <button data-page="tuition" class="nav-item"><span data-icon="ledger"></span>Tuition & payments</button>
+ <button data-page="tools" class="nav-item"><span data-icon="link"></span>External tools</button>
  </nav>
  <div class="sidebar-bottom">
  <div class="local-card"><span data-icon="shield"></span><div>On your device<small>Local records. Your control.</small></div></div>
  <button class="nav-item subtle" data-action="backup"><span data-icon="download"></span>Back up records</button>
  <button class="nav-item subtle" data-action="settings"><span data-icon="settings"></span>Data & preferences</button>
- <div class="profile"><span class="avatar forest">AL</span><span>Alex Lane<small>School administrator</small></span><button class="icon-button" id="theme-button" aria-label="Toggle light and dark theme"><span data-icon="moon"></span></button></div>
+ <div class="profile"><span class="avatar forest">AL</span><span>Alex Lane<small>School administrator</small></span></div>
  </div>
 </aside>
 <div class="workspace">
@@ -33,7 +34,7 @@
   <div class="panel-foot"><span data-icon="refresh"></span>Updates when your local records change.</div>
  </section>
  <aside class="right-rail">
- <section class="cabinet-card iso" data-theme="%%THEME%%"><div class="cabinet-title"><span class="eyebrow">THE PAPER TRAIL</span><span class="micro">Fig 1</span></div><h2>A place for every payment.</h2>
+ <section class="cabinet-card iso" data-theme="%%THEME%%"><h2>A place for every payment.</h2>
  <div class="iso-stage" id="cabinet-stage" tabindex="0" role="group" aria-label="Payment cabinet. Use left and right arrows to preview drawers; Enter filters the tuition records.">%%CABINET%%</div>
  <div class="cabinet-readout"><span id="cabinet-hint">Select a drawer to explore</span><strong id="cabinet-readout" data-readout>Needs action</strong></div>
  <div class="drawer-keys" id="drawer-keys"><button data-drawer-key="action" class="selected"><span>Needs action</span><b id="count-action">0</b></button><button data-drawer-key="funding"><span>Awaiting funding</span><b id="count-funding">0</b></button><button data-drawer-key="settled"><span>Settled</span><b id="count-settled">0</b></button></div>
@@ -48,9 +49,16 @@
  <div class="heading-row"><div><div class="eyebrow">TUITION & PAYMENTS</div><h1>Every balance, explained.</h1><p class="page-intro">What’s received, what’s due, and what’s waiting on funding.</p></div><div class="button-row"><button class="secondary" data-action="import"><span data-icon="upload"></span>Import CSV</button><button class="primary" data-action="add-account"><span data-icon="plus"></span>Add student</button></div></div>
  <div class="stats" id="tuition-stats"></div>
  <section class="records-panel"><div class="records-toolbar"><div class="tabs" id="record-tabs"><button class="active" data-account-filter="all">All students</button><button data-account-filter="action">Needs action</button><button data-account-filter="funding">Awaiting funding</button><button data-account-filter="settled">Settled</button></div><button class="text-button" data-action="export"><span data-icon="download"></span>Export</button></div>
- <div class="search-row"><label class="search"><span data-icon="search"></span><input id="account-search" placeholder="Find a student, payer, or PIC" aria-label="Find student records"></label><span class="micro" id="record-count"></span></div><div id="unmatched-banner"></div><div class="table-scroll"><table class="accounts-table"><thead><tr><th>Student</th><th>Payer</th><th>Balance</th><th>Status</th><th>Due date</th><th><span class="sr-only">Details</span></th></tr></thead><tbody id="accounts-body"></tbody></table></div>
+ <div class="search-row"><label class="search"><span data-icon="search"></span><input id="account-search" placeholder="Find a student, payer, or PIC" aria-label="Find student records"></label><span class="micro" id="record-count"></span></div><div id="unmatched-banner"></div><div class="table-scroll"><table class="accounts-table"><thead><tr><th>Student</th><th>Payer</th><th>Balance</th><th>Status</th><th>Outstanding invoices</th><th><span class="sr-only">Details</span></th></tr></thead><tbody id="accounts-body"></tbody></table></div>
  </section>
  <p class="scope-caption">Expected program funding is kept separate from family overdue balances. Updates come from manual entry and file imports.</p>
+</section>
+<section id="page-tools" class="page" hidden>
+ <div class="heading-row"><div><div class="eyebrow">EXTERNAL TOOLS</div><h1>Bring your tools together.</h1><p class="page-intro">Start with the systems your school already uses.</p></div><span class="tools-demo-label">CONNECTION MOCKUPS</span></div>
+ <div class="tools-notice"><span data-icon="shield"></span><p>This is a preview of the connection experience. No accounts are linked, no data is shared, and provider API access has not been confirmed.</p></div>
+ <div class="section-top tools-section-title"><h2>Explore connections</h2><span class="micro" id="tools-connected-count">0 demo connections</span></div>
+ <div class="tools-grid" id="tools-grid"></div>
+ <div class="tools-footnote"><span data-icon="settings"></span><p>During school setup, we’ll check API access, permissions, available data, and ongoing costs before building a real connection.</p></div>
 </section>
 <section id="page-assistant" class="page" hidden aria-hidden="true"></section>
 </main>
@@ -66,7 +74,7 @@
  </div>
  <div class="assistant-panel">
   <div class="assistant-welcome"><div class="assistant-mark" data-icon="spark"></div><h2>Where would you like to start?</h2><p>This local assistant understands the requests below.<br>Changes are always shown for review.</p></div>
-  <div class="prompt-grid"><button data-prompt="Show overdue balances"><span data-icon="ledger"></span>Overdue balances</button><button data-prompt="What is awaiting funding?"><span data-icon="clock"></span>Awaiting funding</button><button data-prompt="Draft a reminder for Student A"><span data-icon="mail"></span>Draft for Maya</button><button data-prompt="Record  for Student A"><span data-icon="plus"></span>Record  Maya</button></div>
+  <div class="prompt-grid"><button data-prompt="Show overdue balances"><span data-icon="ledger"></span>Overdue balances</button><button data-prompt="What is awaiting funding?"><span data-icon="clock"></span>Awaiting funding</button><button data-prompt="Draft a reminder for Student A"><span data-icon="mail"></span>Draft for Maya</button><button data-prompt="Record $200 for Student A"><span data-icon="plus"></span>Record $200 for Maya</button></div>
   <div id="conversation" class="conversation" aria-live="polite"></div>
   <form id="assistant-form" class="assistant-input"><input id="assistant-query" placeholder='Ask assistant or record action…' aria-label="Ask the local assistant" autocomplete="off"><button class="primary icon-button" type="submit" aria-label="Submit request"><span data-icon="spark"></span></button></form>
   <div class="assistant-foot"><span data-icon="shield"></span>Operates on local records. No external AI or email.</div>

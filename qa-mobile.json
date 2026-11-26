@@ -1,6 +1,10 @@
 [
   [
     "eval",
+    "TallyHall.toggleAssistant(false);window.scrollTo(0,0);if(document.documentElement.scrollWidth>innerWidth)throw Error('Horizontal overflow');'Mobile fits'"
+  ],
+  [
+    "eval",
     "window.scrollTo(0,0);if(document.documentElement.scrollWidth>innerWidth)throw Error('Horizontal overflow');'Mobile fits'"
   ],
   [
@@ -8,10 +12,6 @@
     "shots/mobile.png",
     "body",
     1
-  ],
-  [
-    "click",
-    "[data-page=assistant]"
   ],
   [
     "eval",

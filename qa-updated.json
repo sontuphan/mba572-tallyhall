@@ -1,0 +1,111 @@
+[
+  [
+    "eval",
+    "if(!window.TallyHall)throw Error('App not initialized');if(document.querySelector('#theme-button')||document.documentElement.dataset.theme!=='light')throw Error('Light-only failed');TallyHall.toggleAssistant(false);window.scrollTo(0,0);if(document.documentElement.scrollWidth>innerWidth)throw Error('Page overflow');'Light-only layout ready'"
+  ],
+  [
+    "wait",
+    350
+  ],
+  [
+    "shot",
+    "shots/updated-today.png",
+    "body",
+    1
+  ],
+  [
+    "click",
+    ".job-topic > summary"
+  ],
+  [
+    "eval",
+    "if(document.querySelector('.job-topic').open)throw Error('Topic did not collapse');document.querySelector('.job-topic>summary').click();if(!document.querySelector('.job-topic').open)throw Error('Topic did not expand');'Topic drill-down works'"
+  ],
+  [
+    "click",
+    ".job-topic .student-link[data-account=a]"
+  ],
+  [
+    "eval",
+    "if(!document.querySelector('#dialog-content').textContent.includes('Communication history'))throw Error('Student history missing');if(!document.querySelector('#dialog-content').textContent.includes('33 days past due'))throw Error('Invoice days missing');'Student invoice and payment history verified'"
+  ],
+  [
+    "shot",
+    "shots/updated-account.png",
+    "#dialog",
+    1
+  ],
+  [
+    "click",
+    "#dialog [data-action=draft]"
+  ],
+  [
+    "eval",
+    "const d=TallyHall.state.drafts.a;if(d.invoices.length!==2||!d.body.includes('33 days past due')||!d.body.includes('3 days past due'))throw Error('Invoice detail missing from draft');if(TallyHall.Model.lastReminder(TallyHall.state,'a'))throw Error('Draft counted as sent');document.querySelector('#draft-reviewed').checked=true;document.querySelector('#draft-form').requestSubmit();if(TallyHall.Model.lastReminder(TallyHall.state,'a'))throw Error('Review counted as sent');'Reminder includes both outstanding months'"
+  ],
+  [
+    "shot",
+    "shots/updated-draft.png",
+    "#dialog",
+    1
+  ],
+  [
+    "click",
+    "#dialog [data-action=record-sent]"
+  ],
+  [
+    "eval",
+    "document.querySelector('#sent-confirm').checked=true;document.querySelector('#sent-form').requestSubmit();if(TallyHall.Model.lastReminder(TallyHall.state,'a')!==TallyHall.state.day)throw Error('Sending not recorded');if(!document.querySelector('#dialog-content').textContent.includes('Sent \u00b7 staff confirmed'))throw Error('Sent history missing');'Manual confirmation updates last reminder only'"
+  ],
+  [
+    "click",
+    "#dialog [data-action=followup-note]"
+  ],
+  [
+    "eval",
+    "document.querySelector('#followup-note').value='Family asked for a call tomorrow';document.querySelector('#note-form').requestSubmit();if(!document.querySelector('#dialog-content').textContent.includes('Follow-up note'))throw Error('Note missing');'Notes remain distinct'"
+  ],
+  [
+    "shot",
+    "shots/updated-history.png",
+    "#dialog",
+    1
+  ],
+  [
+    "eval",
+    "TallyHall.Model.validate(JSON.parse(localStorage.getItem('tallyhall.local.prototype.v1')));document.querySelector('#dialog [data-action=close]').click();TallyHall.paymentModal('a','50');document.querySelector('#payment-source').value='QA partial receipt';document.querySelector('#payment-verified').checked=true;document.querySelector('#payment-form').requestSubmit();if(TallyHall.Model.outstanding(TallyHall.state,TallyHall.state.accounts[0])[0].balance!==5000)throw Error('Partial payment not allocated');if(TallyHall.Model.jobs(TallyHall.state).find(j=>j.id==='draft:a').status!=='Needs approval')throw Error('Old draft not invalidated');'Partial payment updates invoices and jobs'"
+  ],
+  [
+    "eval",
+    "TallyHall.draftModal('a');if(!document.querySelector('#dialog-content').textContent.includes('Records changed'))throw Error('Stale warning missing');document.querySelector('#dialog [data-action=close]').click();TallyHall.accountModal('a');document.querySelector('#dialog [data-action=add-invoice]').click();document.querySelector('#invoice-month').value='2027-01';document.querySelector('#invoice-amount').value='500';document.querySelector('#invoice-due').value='2027-01-05';document.querySelector('#invoice-source').value='Next tuition sheet';document.querySelector('#invoice-form').requestSubmit();if(TallyHall.Model.invoices(TallyHall.state,TallyHall.state.accounts[0]).length!==3)throw Error('Month not added');'Additional month supported'"
+  ],
+  [
+    "eval",
+    "document.querySelector('#dialog [data-action=close]').click();TallyHall.navigate('today');document.querySelector('[data-view=calendar]').click();if(document.querySelectorAll('.cal-day').length!==42)throw Error('Calendar broken');if(document.documentElement.scrollWidth>innerWidth)throw Error('Calendar overflow');'Calendar still fits'"
+  ],
+  [
+    "shot",
+    "shots/updated-calendar.png",
+    "body",
+    1
+  ],
+  [
+    "eval",
+    "document.querySelector('[data-view=list]').click();window.scrollTo(0,0);TallyHall.chooseCabinet('action');"
+  ],
+  [
+    "wait",
+    900
+  ],
+  [
+    "lines",
+    "shots/updated-lines.png",
+    "#cabinet-stage"
+  ],
+  [
+    "shot",
+    "shots/updated-cabinet.png",
+    "#cabinet-stage",
+    4
+  ]
+]

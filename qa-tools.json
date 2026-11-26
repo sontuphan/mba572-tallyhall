@@ -1,0 +1,76 @@
+[
+  [
+    "eval",
+    "window.__recordsBefore=JSON.stringify(TallyHall.state);window.__networkCalls=0;window.fetch=()=>{window.__networkCalls++;throw Error('Unexpected network call')};window.__externalOpen=0;window.open=()=>{window.__externalOpen++;throw Error('Unexpected external page')};'Mock boundary armed'"
+  ],
+  [
+    "click",
+    "[data-page=tools]"
+  ],
+  [
+    "eval",
+    "if(document.querySelector('#page-tools').hidden)throw Error('Tools page hidden');if(document.querySelectorAll('[data-tool-card]').length!==4)throw Error('Missing providers');if(document.querySelector('#crumb').textContent!=='External tools')throw Error('Navigation missing');if(document.documentElement.scrollWidth>innerWidth)throw Error('Tools page overflow');'Four mock providers render'"
+  ],
+  [
+    "shot",
+    "shots/tools.png",
+    "body",
+    1
+  ],
+  [
+    "click",
+    "[data-tool=brightwheel]"
+  ],
+  [
+    "eval",
+    "if(document.querySelectorAll('#dialog input').length)throw Error('Mock requests credentials');if(!document.querySelector('#dialog-content').textContent.includes('not verified'))throw Error('Missing mock disclaimer');'No credentials requested'"
+  ],
+  [
+    "shot",
+    "shots/tools-connect.png",
+    "#dialog",
+    1
+  ],
+  [
+    "click",
+    "[data-action=tool-connect]"
+  ],
+  [
+    "eval",
+    "if(!document.querySelector('[data-tool-card=brightwheel]').textContent.includes('Connected · demo'))throw Error('Missing demo state');if(JSON.stringify(TallyHall.state)!==window.__recordsBefore)throw Error('Tuition data changed');if(window.__networkCalls||window.__externalOpen)throw Error('External operation attempted');if(JSON.parse(localStorage.getItem('tallyhall.local.prototype.v1.demoConnections'))[0]!=='brightwheel')throw Error('Demo state not saved');'Demo connection is local and preserves records'"
+  ],
+  [
+    "click",
+    "[data-tool=brightwheel]"
+  ],
+  [
+    "click",
+    "[data-action=tool-disconnect]"
+  ],
+  [
+    "eval",
+    "if(document.querySelector('[data-tool-card=brightwheel]').textContent.includes('Connected · demo'))throw Error('Disconnect failed');if(JSON.parse(localStorage.getItem('tallyhall.local.prototype.v1.demoConnections')).length)throw Error('Demo state not cleared');'Disconnect works'"
+  ],
+  [
+    "eval",
+    "for(const id of ['venmo','zelle','revolut']){document.querySelector('[data-tool='+id+']').click();document.querySelector('[data-action=tool-connect]').click();if(!document.querySelector('[data-tool-card='+id+']').textContent.includes('Connected · demo'))throw Error(id+' failed')}if(JSON.stringify(TallyHall.state)!==window.__recordsBefore)throw Error('Records changed');'All providers use the same safe mock flow'"
+  ],
+  [
+    "eval",
+    "document.querySelector('#agent-sidebar').classList.add('collapsed');window.scrollTo(0,0);'Preview without assistant sidebar'"
+  ],
+  [
+    "shot",
+    "shots/tools-wide.png",
+    "body",
+    1
+  ],
+  [
+    "click",
+    "[data-page=today]"
+  ],
+  [
+    "eval",
+    "if(document.querySelector('#page-today').hidden||!document.querySelector('#page-tools').hidden)throw Error('Other navigation broken');'Today navigation preserved'"
+  ]
+]

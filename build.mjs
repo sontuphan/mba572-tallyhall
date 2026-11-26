@@ -1,4 +1,4 @@
-import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
+import {readFileSync,writeFileSync,mkdirSync,rmSync} from 'node:fs';
 import {dirname,join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import * as k from '/Users/tuphan/.gemini/config/skills/anatomy/kit/iso-kit.mjs';
@@ -64,12 +64,17 @@ A.auditOrExit(R,P,{frames:states,apart:false});
 const at0=k.iso([0,0,0],P),at1=k.iso([0,1,0],P);
 const svg=k.figureSvg({width:520,height:420,label:'A crafted three-drawer index-card cabinet. Drawers group the same local tuition records into needs action, awaiting funding, and settled. Select a drawer to filter the records.',body:['<path class="iso-halo" d="'+k.haloOf({x:-68,y:-46,w:136,d:92,r:3},-10,10,P)+'"/>',...parts.sort((a,b)=>a.key-b.key).map(p=>'<g id="'+p.id+'" class="cab-part" data-drawer="'+p.drawer+'">'+p.svg+'</g>')]});
 const template=readFileSync(join(here,'shell.html'),'utf8');
-const styles=readFileSync(join(here,'style.css'),'utf8');
-const script=readFileSync(join(here,'model.js'),'utf8')+'\n'+readFileSync(join(here,'app.js'),'utf8');
+const fontLicense=readFileSync(join(here,'fonts/OFL.txt'),'utf8');
+const fontStyles=[['normal','InterVariable.woff2'],['italic','InterVariable-Italic.woff2']].map(([style,file])=>'@font-face{font-family:"Inter";font-style:'+style+';font-weight:100 900;font-display:swap;src:url("data:font/woff2;base64,'+readFileSync(join(here,'fonts',file)).toString('base64')+'") format("woff2")}').join('\n');
+const styles='/* '+fontLicense+' */\n'+fontStyles+'\n'+readFileSync(join(here,'style.css'),'utf8');
+const icons=readFileSync(join(here,'lucide-icons.json'),'utf8');
+const license=readFileSync(join(here,'LUCIDE-LICENSE.txt'),'utf8');
+const script='/* Lucide icons — '+license+' */\nconst LUCIDE_ICONS='+icons+';\n'+readFileSync(join(here,'model.js'),'utf8')+'\n'+readFileSync(join(here,'app.js'),'utf8');
 mkdirSync(join(here,'dist'),{recursive:true});
-for(const theme of ['light','dark']){
+for(const theme of ['light']){
  const html=template.replaceAll('%%THEME%%',theme).replace('%%STYLES%%',k.ISO_CSS+'\n'+styles).replace('%%CABINET%%',svg)
  .replace('%%SCRIPT%%',()=>'window.CABINET='+JSON.stringify({parts:parts.map(({svg,item,...p})=>p),vector:[at1[0]-at0[0],at1[1]-at0[1]],P})+';\n'+script);
  writeFileSync(join(here,'dist',theme==='light'?'index.html':'index-dark.html'),html);
 }
-console.log('Built both themes. Cabinet solids:',parts.length);
+rmSync(join(here,'dist/index-dark.html'),{force:true});
+console.log('Built light theme. Cabinet solids:',parts.length);
