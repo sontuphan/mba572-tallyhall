@@ -26,30 +26,26 @@
 <section id="page-today" class="page">
  <div class="heading-row"><div><div class="eyebrow" id="today-date"></div><h1>Your day, in order.</h1><p class="page-intro" id="day-intro"></p></div><button class="primary" data-action="payment"><span data-icon="plus"></span>Record payment</button></div>
  <div class="stats" id="stats"></div>
- <div class="today-grid">
+ <section class="cabinet-card iso" data-theme="%%THEME%%"><h2>A place for every payment.</h2>
+ <div class="iso-stage" id="cabinet-stage" tabindex="0" role="group" aria-label="Payment cabinet. Use left and right arrows to preview drawers; Enter filters the tuition records.">%%CABINET%%</div>
+ <div class="cabinet-readout"><span id="cabinet-hint">Select a drawer to explore</span><strong id="cabinet-readout" data-readout>Needs action</strong></div>
+ <div class="drawer-keys" id="drawer-keys"><button data-drawer-key="action" class="selected"><span>Needs action</span><b id="count-action">0</b></button><button data-drawer-key="funding"><span>Awaiting funding</span><b id="count-funding">0</b></button><button data-drawer-key="settled"><span>Settled</span><b id="count-settled">0</b></button></div>
+ <p class="cabinet-caption sr-only">Same records. Three drawers. Open one to see where things stand.</p>
+ </section>
  <section class="jobs-panel">
   <div class="section-top"><h2>Your to-do list <span id="job-count" class="count-badge"></span></h2><div class="segmented" aria-label="Job view"><button class="selected" data-view="list" aria-pressed="true" aria-label="List view"><span data-icon="list"></span></button><button data-view="calendar" aria-pressed="false" aria-label="Calendar view"><span data-icon="calendar"></span></button></div></div>
   <div class="filter-row"><div class="tabs" aria-label="Job status"><button class="active" data-job-filter="active">To do</button><button data-job-filter="waiting">Waiting</button><button data-job-filter="done">Done</button><button data-job-filter="all">All jobs</button></div><select id="pic-filter" aria-label="Filter by person in charge"><option value="Alex">My jobs</option value="all">Everyone</option value="Sam">Sam</option></select></div>
   <div id="jobs-content"></div>
   <div class="panel-foot"><span data-icon="refresh"></span>Updates when your local records change.</div>
  </section>
- <aside class="right-rail">
- <section class="cabinet-card iso" data-theme="%%THEME%%"><h2>A place for every payment.</h2>
- <div class="iso-stage" id="cabinet-stage" tabindex="0" role="group" aria-label="Payment cabinet. Use left and right arrows to preview drawers; Enter filters the tuition records.">%%CABINET%%</div>
- <div class="cabinet-readout"><span id="cabinet-hint">Select a drawer to explore</span><strong id="cabinet-readout" data-readout>Needs action</strong></div>
- <div class="drawer-keys" id="drawer-keys"><button data-drawer-key="action" class="selected"><span>Needs action</span><b id="count-action">0</b></button><button data-drawer-key="funding"><span>Awaiting funding</span><b id="count-funding">0</b></button><button data-drawer-key="settled"><span>Settled</span><b id="count-settled">0</b></button></div>
- <p class="cabinet-caption">Same records. Three drawers. Open one to see where things stand.</p>
- </section>
  <section class="quiet-note"><span data-icon="mail"></span><div><h3>You send. We help prepare.</h3><p>TallyHall drafts the email. Review it, copy it, and send it from your own email app.</p></div></section>
- </aside>
- </div>
  <div class="bottom-context"><span class="small-brand">TH</span><p>Less chasing. More teaching.</p><button data-action="history">View activity <span data-icon="history"></span></button></div>
 </section>
 <section id="page-tuition" class="page" hidden>
  <div class="heading-row"><div><div class="eyebrow">TUITION & PAYMENTS</div><h1>Every balance, explained.</h1><p class="page-intro">What’s received, what’s due, and what’s waiting on funding.</p></div><div class="button-row"><button class="secondary" data-action="import"><span data-icon="upload"></span>Import CSV</button><button class="primary" data-action="add-account"><span data-icon="plus"></span>Add student</button></div></div>
  <div class="stats" id="tuition-stats"></div>
  <section class="records-panel"><div class="records-toolbar"><div class="tabs" id="record-tabs"><button class="active" data-account-filter="all">All students</button><button data-account-filter="action">Needs action</button><button data-account-filter="funding">Awaiting funding</button><button data-account-filter="settled">Settled</button></div><button class="text-button" data-action="export"><span data-icon="download"></span>Export</button></div>
- <div class="search-row"><label class="search"><span data-icon="search"></span><input id="account-search" placeholder="Find a student, payer, or PIC" aria-label="Find student records"></label><span class="micro" id="record-count"></span></div><div id="unmatched-banner"></div><div class="table-scroll"><table class="accounts-table"><thead><tr><th>Student</th><th>Payer</th><th>Balance</th><th>Status</th><th>Outstanding invoices</th><th><span class="sr-only">Details</span></th></tr></thead><tbody id="accounts-body"></tbody></table></div>
+ <div class="search-row"><label class="search"><span data-icon="search"></span><input id="account-search" placeholder="Find a student, payer, or PIC" aria-label="Find student records"></label><span class="micro" id="record-count"></span></div><div id="unmatched-banner"></div><div class="table-scroll"><table class="accounts-table" role="table"><thead><tr><th>Student</th><th>Payer</th><th>Balance</th><th>Status</th><th>Outstanding invoices</th><th><span class="sr-only">Details</span></th></tr></thead><tbody id="accounts-body"></tbody></table></div>
  </section>
  <p class="scope-caption">Expected program funding is kept separate from family overdue balances. Updates come from manual entry and file imports.</p>
 </section>

@@ -1,0 +1,56 @@
+[
+  [
+    "eval",
+    "document.fonts.ready.then(()=>{if(!TallyHall)throw Error('App not initialized');window.__records=JSON.stringify(TallyHall.state);if(innerWidth<1000)TallyHall.toggleAssistant(false);return 'Layout initialized'})"
+  ],
+  [
+    "wait",
+    350
+  ],
+  [
+    "eval",
+    "const page=document.querySelector('#page-today').getBoundingClientRect(),jobs=document.querySelector('.jobs-panel').getBoundingClientRect();if(Math.abs(page.width-jobs.width)>2)throw Error('Jobs still lose width');if(document.documentElement.scrollWidth>innerWidth)throw Error('Today overflow');if([...document.querySelectorAll('#stats .stat-value')].some(e=>e.scrollWidth>e.clientWidth+1))throw Error('Summary amounts clipped');'Full-width jobs verified'"
+  ],
+  [
+    "shot",
+    "shots/layout-today.png",
+    "body",
+    1
+  ],
+  [
+    "eval",
+    "TallyHall.navigate('tuition');if(document.documentElement.scrollWidth>innerWidth)throw Error('Tuition page overflow');const panel=document.querySelector('.records-panel');if(panel.scrollWidth>panel.clientWidth+1)throw Error('Records overflow');if(!document.querySelector('.records-toolbar>[data-action=export]').getBoundingClientRect().width)throw Error('Export hidden');if(document.querySelectorAll('#accounts-body tr').length!==6)throw Error('Student records missing');'Responsive tuition records fit'"
+  ],
+  [
+    "shot",
+    "shots/layout-tuition.png",
+    "body",
+    1
+  ],
+  [
+    "eval",
+    "document.querySelector('[data-account-filter=funding]').click();if(document.querySelectorAll('#accounts-body tr').length!==2)throw Error('Funding filter failed');document.querySelector('#account-search').value='Amelia';document.querySelector('#account-search').dispatchEvent(new Event('input'));if(document.querySelectorAll('#accounts-body tr').length!==1)throw Error('Search failed');document.querySelector('#accounts-body .student-link').click();if(!document.querySelector('#dialog-title').textContent.includes('Amelia'))throw Error('Student details failed');document.querySelector('#dialog [data-action=close]').click();document.querySelector('#account-search').value='';document.querySelector('#account-search').dispatchEvent(new Event('input'));document.querySelector('[data-account-filter=all]').click();'Filter, search and student account work'"
+  ],
+  [
+    "eval",
+    "if(innerWidth>=1000)TallyHall.toggleAssistant(false);'Wide column preview'"
+  ],
+  [
+    "wait",
+    350
+  ],
+  [
+    "eval",
+    "if(document.documentElement.scrollWidth>innerWidth)throw Error('Wide tuition page overflow');const scroll=document.querySelector('.table-scroll');if(scroll.scrollWidth>scroll.clientWidth+1)throw Error('Wide table overflow');if(JSON.stringify(TallyHall.state)!==window.__records)throw Error('Layout changed financial data');'Wide table fits; records unchanged'"
+  ],
+  [
+    "shot",
+    "shots/layout-tuition-wide.png",
+    "body",
+    1
+  ],
+  [
+    "eval",
+    "TallyHall.navigate('today');if(Math.abs(document.querySelector('#main').getBoundingClientRect().width-Math.min(1530,document.querySelector('.center-panel').getBoundingClientRect().width))>2)throw Error('Unused content width');document.querySelector('[data-view=calendar]').click();if(document.querySelectorAll('.cal-day').length!==42||document.documentElement.scrollWidth>innerWidth)throw Error('Calendar layout failed');document.querySelector('[data-view=list]').click();TallyHall.chooseCabinet('funding');'Calendar and cabinet work'"
+  ]
+]
